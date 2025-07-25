@@ -1,0 +1,4 @@
+git clone
+uv init
+uv venv
+uv pip install fastmcp

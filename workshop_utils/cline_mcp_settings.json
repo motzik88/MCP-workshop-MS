@@ -1,0 +1,82 @@
+{
+  "mcpServers": {
+    "localAbletonMCP": {
+      "autoApprove": [
+        "get_session_info",
+        "get_browser_items_at_path",
+        "create_midi_track",
+        "set_track_name",
+        "get_track_info",
+        "load_instrument_or_effect"
+      ],
+      "disabled": true,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "C:\\Users\\mmishaeli\\AppData\\Local\\anaconda3\\envs\\ableton-mcp\\python.exe",
+      "args": [
+        "C:\\clones\\vibe-music-prod-server\\MCP_Server\\server.py"
+      ]
+    },
+    "localAbletonMCP2": {
+      "autoApprove": [
+        "get_session_info",
+        "get_browser_items_at_path",
+        "create_midi_track",
+        "set_track_name",
+        "get_track_info",
+        "load_instrument_or_effect",
+        "create_clip",
+        "add_notes_to_clip",
+        "set_clip_name",
+        "fire_clip",
+        "load_drum_kit"
+      ],
+      "disabled": true,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "uvx",
+      "args": [
+        "ableton-mcp"
+      ]
+    },
+    "local-demo-server-workshop": {
+      "autoApprove": [
+        "add"
+      ],
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "C:\\clones\\MCP-workshop-MS\\.venv\\Scripts\\python.exe",
+      "args": [
+        "C:\\clones\\MCP-workshop-MS\\server.py"
+      ]
+    },
+    "feedparser-local-demo-server-workshop": {
+      "autoApprove": [
+        "add"
+      ],
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "C:\\clones\\MCP-workshop-MS\\.venv\\Scripts\\python.exe",
+      "args": [
+        "C:\\clones\\MCP-workshop-MS\\rss_feed_mcp.py"
+      ]
+    },
+    "microsoft.docs.mcp": {
+      "timeout": 60,
+      "type": "streamableHttp",
+      "url": "https://learn.microsoft.com/api/mcp",
+      "disabled": true
+    },
+    "markitdown": {
+      "command": "docker",
+      "args": [
+        "run",
+        "--rm",
+        "-i",
+        "markitdown-mcp:latest"
+      ]
+    }
+  }
+}
