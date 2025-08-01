@@ -9,28 +9,15 @@
         "get_track_info",
         "load_instrument_or_effect"
       ],
-      "disabled": true,
+      "disabled": false,
       "timeout": 60,
       "type": "stdio",
-      "command": "C:\\Users\\mmishaeli\\AppData\\Local\\anaconda3\\envs\\ableton-mcp\\python.exe",
+      "command": "C:\\clones\\vibe-music-prod-server\\.venv\\Scripts\\python.exe",
       "args": [
         "C:\\clones\\vibe-music-prod-server\\MCP_Server\\server.py"
       ]
     },
-    "localAbletonMCP2": {
-      "autoApprove": [
-        "get_session_info",
-        "get_browser_items_at_path",
-        "create_midi_track",
-        "set_track_name",
-        "get_track_info",
-        "load_instrument_or_effect",
-        "create_clip",
-        "add_notes_to_clip",
-        "set_clip_name",
-        "fire_clip",
-        "load_drum_kit"
-      ],
+    "AbletonMCP": {
       "disabled": true,
       "timeout": 60,
       "type": "stdio",
@@ -40,9 +27,6 @@
       ]
     },
     "local-demo-server-workshop": {
-      "autoApprove": [
-        "add"
-      ],
       "disabled": false,
       "timeout": 60,
       "type": "stdio",
@@ -52,9 +36,6 @@
       ]
     },
     "feedparser-local-demo-server-workshop": {
-      "autoApprove": [
-        "add"
-      ],
       "disabled": false,
       "timeout": 60,
       "type": "stdio",
@@ -63,20 +44,33 @@
         "C:\\clones\\MCP-workshop-MS\\rss_feed_mcp.py"
       ]
     },
+    "feedparser-local-uv": {
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\clones\\MCP-workshop-MS",
+        "run",
+        "rss_feed_mcp.py"
+      ]
+    },
+    "serp": {
+      "timeout": 60,
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\clones\\serpapi-mcp-server",
+        "run",
+        "serpapi-mcp-server"
+      ]
+    },
     "microsoft.docs.mcp": {
       "timeout": 60,
       "type": "streamableHttp",
-      "url": "https://learn.microsoft.com/api/mcp",
-      "disabled": true
-    },
-    "markitdown": {
-      "command": "docker",
-      "args": [
-        "run",
-        "--rm",
-        "-i",
-        "markitdown-mcp:latest"
-      ]
+      "url": "https://learn.microsoft.com/api/mcp"
     }
   }
 }
