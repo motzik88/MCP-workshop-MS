@@ -11,15 +11,6 @@ This repository is for the MCP workshop. It contains MCP demo servers, an MCP cl
 
 Follow the [official instructions](https://github.com/astral-sh/uv#installation) or use one of the following commands:
 
-**With pipx:**
-```bash
-pipx install uv
-```
-
-**Or with pip:**
-```bash
-pip install uv
-```
 
 ## 2. Clone the Repository
 
@@ -31,7 +22,7 @@ cd MCP-workshop-MS
 ## 3. Create a New uv Environment
 
 ```bash
-uv venv 
+uv venv / uv init
 ```
 
 Activate the environment:
@@ -45,7 +36,7 @@ Activate the environment:
   .venv\Scripts\activate
   ```
 
-## 4. Install fastagent
+## 4. Install fastmcp
 
 ```bash
 uv pip install fastmcp
