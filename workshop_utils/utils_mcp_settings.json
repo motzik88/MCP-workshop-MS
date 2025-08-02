@@ -35,6 +35,18 @@
         "C:\\clones\\MCP-workshop-MS\\server.py"
       ]
     },
+    "local-demo-server-workshop-uv": {
+      "disabled": false,
+      "timeout": 60,
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\clones\\MCP-workshop-MS",
+        "run",
+        "server.py"
+      ]
+    },
     "feedparser-local-demo-server-workshop": {
       "disabled": false,
       "timeout": 60,
