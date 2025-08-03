@@ -24,7 +24,7 @@ class MCPStdioClient:
         load_dotenv()
         
         # Initialize GPT client using our custom class
-        self.gpt_client = GptCall(gpt_version='gpt4')
+        self.gpt_client = GptCall()
         
         # Initialize session and stdio objects
         self.session: Optional[ClientSession] = None
