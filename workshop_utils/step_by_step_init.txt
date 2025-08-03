@@ -1,4 +1,8 @@
-git clone
+git clone 
 uv init
 uv venv
-uv pip install fastmcp
+uv sync? 
+
+
+
+uv run .\ollama\mcp_client_ollama.py ableton-mcp --model=qwen2.5:7b --use-uv --server-dir=C:\Clones\ableton-mcp
