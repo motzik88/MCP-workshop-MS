@@ -34,6 +34,10 @@ class MCPStdioClient:
         
         # Store server tools
         self.tools = []
+        
+        # Store conversation history (last 3 exchanges)
+        self.conversation_history = []
+        self.max_history_length = 3
 
     async def connect_to_server(self, server_script_path: str, use_uv: bool = False, server_dir: str = None) -> bool:
         """
@@ -105,6 +109,52 @@ class MCPStdioClient:
             traceback.print_exc()
             return False
 
+    def add_to_conversation_history(self, query: str, response: str):
+        """Add a query-response pair to conversation history"""
+        self.conversation_history.append({
+            "query": query,
+            "response": response
+        })
+        
+        # Keep only the last 3 exchanges
+        if len(self.conversation_history) > self.max_history_length:
+            self.conversation_history = self.conversation_history[-self.max_history_length:]
+
+    def create_conversation_summary(self) -> str:
+        """Create a summary of previous conversation exchanges"""
+        if not self.conversation_history:
+            return ""
+        
+        summary_parts = []
+        for i, exchange in enumerate(self.conversation_history, 1):
+            # Truncate long responses for summary
+            response_preview = exchange["response"][:200] + "..." if len(exchange["response"]) > 200 else exchange["response"]
+            summary_parts.append(f"Exchange {i}:\nQ: {exchange['query']}\nA: {response_preview}")
+        
+        return "\n\n".join(summary_parts)
+
+    def build_context_messages(self, current_query: str) -> list:
+        """Build messages list with conversation history context"""
+        # Create system message with tools info
+        tools_info = "\n".join([f"- {tool.name}: {tool.description}" for tool in self.tools])
+        
+        # Add conversation history to system message if exists
+        conversation_summary = self.create_conversation_summary()
+        history_context = ""
+        if conversation_summary:
+            history_context = f"\n\nPrevious conversation context:\n{conversation_summary}\n"
+        
+        system_message = f"""You are a helpful assistant that helps users with queries. 
+You have access to the following tools:
+{tools_info}
+
+If you need to use any of these tools to answer the user's question, please specify which tool you want to use and what parameters you need.{history_context}"""
+
+        return [
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": current_query}
+        ]
+
     async def process_query(self, query: str) -> str:
         """
         Process a query using OpenAI and the MCP server's tools
@@ -119,35 +169,8 @@ class MCPStdioClient:
             return "Error: Not connected to an MCP server"
             
         try:
-            # Prepare initial chat messages
-            messages = [
-                {"role": "system", "content": "You are a helpful assistant that helps users with queries"},
-                {"role": "user", "content": query}
-            ]
-
-            # Convert MCP tools to OpenAI tool format for context
-            available_tools = [{
-                "type": "function",
-                "function": {
-                    "name": tool.name,
-                    "description": tool.description,
-                    "parameters": tool.inputSchema
-                }
-            } for tool in self.tools]
-
-            # Create system message with available tools information
-            tools_info = "\n".join([f"- {tool.name}: {tool.description}" for tool in self.tools])
-            system_message = f"""You are a helpful assistant that helps users with queries. 
-You have access to the following tools:
-{tools_info}
-
-If you need to use any of these tools to answer the user's question, please specify which tool you want to use and what parameters you need."""
-
-            # Initial call to our GPT client
-            messages = [
-                {"role": "system", "content": system_message},
-                {"role": "user", "content": query}
-            ]
+            # Build messages with conversation history context
+            messages = self.build_context_messages(query)
 
             print("Sending query to GPT...")
             response_content = self.gpt_client.call_gpt(messages)
@@ -183,13 +206,24 @@ If you need to use any of these tools to answer the user's question, please spec
                         print(error_msg)
                         final_text.append(f"\n[Error with tool {tool.name}]: {str(e)}")
 
-            return "\n".join([text for text in final_text if text])
+            # Combine all response parts
+            final_response = "\n".join([text for text in final_text if text])
+            
+            # Add this exchange to conversation history
+            self.add_to_conversation_history(query, final_response)
+            
+            return final_response
             
         except Exception as e:
             print(f"Error processing query: {str(e)}")
             import traceback
             traceback.print_exc()
-            return f"Error processing query: {str(e)}"
+            error_response = f"Error processing query: {str(e)}"
+            
+            # Still add to history even if there was an error
+            self.add_to_conversation_history(query, error_response)
+            
+            return error_response
 
     async def chat_loop(self):
         """Run an interactive chat loop"""
