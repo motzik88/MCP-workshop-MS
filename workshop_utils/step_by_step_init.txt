@@ -1,8 +1,16 @@
-git clone 
-uv init
+### onboarding 
+git clone https://github.com/motzik88/MCP-workshop-MS.git
 uv venv
-uv sync? 
+.venv\Scripts\Activate 
+uv sync
 
+### demo server - math functions 
+$5,000 at an annual interest rate of 6%, compounded monthly, for 13 years. What is the final amount?
+
+### SERP example
+what is today's weather in tel aviv?
+OR
+מה מזג האויר בתל אביב היום? 
 
 
 uv run .\ollama\mcp_client_ollama.py ableton-mcp --model=qwen2.5:7b --use-uv --server-dir=C:\Clones\ableton-mcp

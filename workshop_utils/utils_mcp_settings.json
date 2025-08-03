@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "localAbletonMCP": {
-      "disabled": false,
+      "disabled": true,
       "timeout": 60,
       "type": "stdio",
       "command": "uv",
@@ -13,7 +13,7 @@
       ]
     },
     "local-demo-server-workshop": {
-      "disabled": false,
+      "disabled": true,
       "timeout": 60,
       "type": "stdio",
       "command": "C:\\clones\\MCP-workshop-MS\\.venv\\Scripts\\python.exe",
@@ -34,7 +34,7 @@
       ]
     },
     "feedparser-local-demo-server-workshop": {
-      "disabled": false,
+      "disabled": true,
       "timeout": 60,
       "type": "stdio",
       "command": "C:\\clones\\MCP-workshop-MS\\.venv\\Scripts\\python.exe",
@@ -43,7 +43,7 @@
       ]
     },
     "feedparser-local-uv": {
-      "disabled": false,
+      "disabled": true,
       "timeout": 60,
       "type": "stdio",
       "command": "uv",
@@ -56,6 +56,7 @@
     },
     "serp": {
       "timeout": 60,
+      "disabled": true,
       "type": "stdio",
       "command": "uv",
       "args": [
@@ -68,8 +69,24 @@
         "SERPAPI_API_KEY": "2be1d180d399548d199122f926faba089272211f4092d108e18360983a259a90"
       }
     },
+    "serp-no-pack": {
+      "timeout": 60,
+      "disabled": false,
+      "type": "stdio",
+      "command": "uv",
+      "args": [
+        "--directory",
+        "C:\\clones\\serpapi-mcp-server\\src\\serpapi-mcp-server",
+        "run",
+        "server.py"
+      ],
+      "env": {
+        "SERPAPI_API_KEY": "2be1d180d399548d199122f926faba089272211f4092d108e18360983a259a90"
+      }
+    },
     "microsoft.docs.mcp": {
       "timeout": 60,
+      "disabled": true,
       "type": "streamableHttp",
       "url": "https://learn.microsoft.com/api/mcp"
     }
