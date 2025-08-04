@@ -19,10 +19,11 @@ git clone https://github.com/motzik88/MCP-workshop-MS.git
 cd MCP-workshop-MS
 ```
 
-## 3. Create a New uv Environment
+## 3. Create a New uv Environment and install dependencies
 
 ```bash
-uv venv / uv init
+uv venv 
+uv sync
 ```
 
 Activate the environment:
@@ -36,10 +37,6 @@ Activate the environment:
   .venv\Scripts\activate
   ```
 
-## 4. Install fastmcp
 
-```bash
-uv pip install fastmcp
-```
 
 You are now ready to use the project!
