@@ -13,4 +13,7 @@ OR
 מה מזג האויר בתל אביב היום? 
 
 
+# Ollama part
 uv run .\ollama\mcp_client_ollama.py ableton-mcp --model=qwen2.5:7b --use-uv --server-dir=C:\Clones\ableton-mcp
+
+
